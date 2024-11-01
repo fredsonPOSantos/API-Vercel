@@ -6,6 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "engines": {
+  "node": "22.10.0"
+}
   "keywords": [],
   "author": "Fredson Pereira de Oliveira Santos",
   "license": "ISC",
