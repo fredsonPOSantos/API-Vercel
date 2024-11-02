@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/Appointment');
-const User = require('../models/User');
+const User = require('../models/user');
 const authMiddleware = require('../middleware/auth');
 
 require('dotenv').config(); // Certifique-se de carregar as variáveis de ambiente
