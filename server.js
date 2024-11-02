@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const app = express(); // Inicializa o Express
 const secret = process.env.JWT_SECRET; // Token secreto para autenticação
 const tokenExpiration = '1h'; // Duração do token JWT
-const port = process.env.PORT || 10000;  //Defini A porta que O servidor Vai rodar
+const port = process.env.PORT || 4000;  //Defini A porta que O servidor Vai rodar
 
 dotenv.config(); // Serve Para Carregar Variaveis de Ambiente
 require('dotenv').config();  //carregar variaveis de ambiente
