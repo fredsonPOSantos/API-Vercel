@@ -11,8 +11,8 @@
     "start": "node server.js"
   },
   "engines": {
-  "node": ">=18.18.0 <20.18.0"
-},
+    "node": ">=18.18.0 <20.18.0"
+  },
   "keywords": [],
   "author": "Fredson Pereira de Oliveira Santos",
   "license": "ISC",
