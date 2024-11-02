@@ -1,6 +1,10 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "server": {
+        "url" : "https://api-agendamento-1.onrender.com",
+        "description": "Render Server"
+      },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
