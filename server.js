@@ -19,8 +19,8 @@ require('dotenv').config();  //carregar variaveis de ambiente
 
 // Carregar o certificado e a chave privada gerado pelo openSSl em meu nome
 const options = {
-  key: fs.readFileSync(path.join(__dirname, 'server', 'certificados', 'key.pem')), // Caminho do key.pem
-  cert: fs.readFileSync(path.join(__dirname, 'server','certificados', 'cert.pem')), // Caminho do cert.pem
+  key: Buffer.from(process.env.SSL_KEY, 'utf-8'),
+  cert: Buffer.from(process.env.SSL_CERT, 'utf-8')
 };
 
 // Configuração do CORS (politica de acesso)
