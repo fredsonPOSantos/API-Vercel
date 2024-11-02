@@ -15,12 +15,6 @@ const port = process.env.PORT || 10000;  //Defini A porta que O servidor Vai rod
 dotenv.config(); // Serve Para Carregar Variaveis de Ambiente
 require('dotenv').config();  //carregar variaveis de ambiente
 
-// Carregar o certificado e a chave privada gerado pelo openSSl em meu nome
-const options = {
-  key: fs.readFileSync(path.join(__dirname, 'server', 'certificados', 'key.pem')), // Caminho do key.pem
-  cert: fs.readFileSync(path.join(__dirname, 'server','certificados', 'cert.pem')), // Caminho do cert.pem
-};
-
 // Configuração do CORS (politica de acesso)
 app.use(cors({
   origin: '*', // Permite acesso de qualquer origem
