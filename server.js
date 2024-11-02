@@ -60,7 +60,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .then(() => console.log('Banco de Dados MongoDB-Cloud connectado com Sucesso'))
     .catch(err => console.log(err));
 
-// Iniciar o servidor HTTPS
+// Iniciar o servidor HTTP
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
