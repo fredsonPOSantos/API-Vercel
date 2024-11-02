@@ -7,12 +7,10 @@ const authRoutes = require('./server/routes/auth');
 const appointmentRoutes = require('./server/routes/appointments');
 const reportRoutes = require('./server/routes/reports');
 const jwt = require('jsonwebtoken');
-const https = require('https');
-const fs = require('fs');
 const app = express(); // Inicializa o Express
 const secret = process.env.JWT_SECRET; // Token secreto para autenticação
 const tokenExpiration = '1h'; // Duração do token JWT
-const port = process.env.PORT || 4000;  //Defini A porta que O servidor Vai rodar
+const port = process.env.PORT || 10000;  //Defini A porta que O servidor Vai rodar
 
 dotenv.config(); // Serve Para Carregar Variaveis de Ambiente
 require('dotenv').config();  //carregar variaveis de ambiente
@@ -63,7 +61,6 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .catch(err => console.log(err));
 
 // Iniciar o servidor HTTPS
-https.createServer(options, app).listen(port, () => {
-  console.log(`Servidor rodando em https://localhost:${port}`);
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
-
