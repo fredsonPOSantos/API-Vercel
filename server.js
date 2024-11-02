@@ -7,11 +7,11 @@ const authRoutes = require('./server/routes/auth');
 const appointmentRoutes = require('./server/routes/appointments');
 const reportRoutes = require('./server/routes/reports');
 const jwt = require('jsonwebtoken');
-const https = require('https');
-const http = require('http'); 
 const app = express(); // Inicializa o Express
 const secret = process.env.JWT_SECRET; // Token secreto para autenticação
 const tokenExpiration = '1h'; // Duração do token JWT
+const https = require('https');
+const http = require('http'); 
 const httpPort = process.env.HTTP_PORT || 4001; // Porta para o servidor HTTP
 const httpsPort = process.env.HTTPS_PORT || 4000; // Porta para o servidor HTTPS
 
@@ -69,6 +69,6 @@ http.createServer(app).listen(httpPort, () => {
 });
 
 // Iniciar o servidor HTTPS
-https.createServer(httpsOptions, app).listen(httpsPort, () => {
+https.createServer(https, app).listen(httpsPort, () => {
   console.log(`Servidor HTTPS rodando em https://localhost:${httpsPort}`);
 });
