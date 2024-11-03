@@ -91,7 +91,7 @@ router.get('/', authMiddleware, async (req, res) => {
 });
 
 // Rota para buscar todos os usuários pelo campo 'username'
-router.get('/users', async (req, res) => {
+router.get('/users', async (_req, res) => {
     try {
         const users = await User.find({}, 'username'); // Busca apenas o campo 'username'
         res.json(users);
