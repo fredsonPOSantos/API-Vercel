@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user'); // Certifique-se de importar o modelo de usuário
+const User = require('../models/User'); // Certifique-se de importar o modelo de usuário
 
 const authMiddleware = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
