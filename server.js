@@ -10,8 +10,10 @@ const jwt = require('jsonwebtoken');
 const app = express(); // Inicializa o Express
 const secret = process.env.JWT_SECRET; // Token secreto para autenticação
 const tokenExpiration = '1h'; // Duração do token JWT
-const http = require('http');
-const httpPort = process.env.HTTP_PORT || 10000; // Porta para o servidor HTTP
+
+const https = require('https');
+
+const httpsPort = process.env.HTTPS_PORT || 3002; // Porta para o servidor HTTPS;
 
 dotenv.config(); // Serve Para Carregar Variaveis de Ambiente
 require('dotenv').config();  //carregar variaveis de ambiente
@@ -61,7 +63,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .then(() => console.log('Banco de Dados MongoDB-Cloud connectado com Sucesso'))
     .catch(err => console.log(err));
 
-/// Iniciar o servidor HTTP
-http.createServer(app).listen(httpPort, () => {
-  console.log(`Servidor HTTP rodando em http://localhost:${httpPort}`);
+
+https.createServer(options, app).listen(httpsPort, () => {
+  console.log(`Servidor HTTPS rodando em https://localhost:${httpsPort}`);
 });
