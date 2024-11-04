@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/Appointment');
-const User = require('../models/user');
+const User = require('../models/User');
 const authMiddleware = require('../middleware/auth');
 
 require('dotenv').config(); // Certifique-se de carregar as variáveis de ambiente
@@ -91,7 +91,7 @@ router.get('/', authMiddleware, async (req, res) => {
 });
 
 // Rota para buscar todos os usuários pelo campo 'username'
-router.get('/users', async (_req, res) => {
+router.get('/users', async (req, res) => {
     try {
         const users = await User.find({}, 'username'); // Busca apenas o campo 'username'
         res.json(users);
