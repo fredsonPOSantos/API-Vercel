@@ -42,7 +42,6 @@ router.get('/analytics', authMiddleware, async (req, res) => {
 router.get('/export', authMiddleware, async (req, res) => {
     try {
         const appointments = await Appointment.find();
-        // Formatar dados para CSV
         const csvData = appointments.map(app => ({
             id: app._id,
             username: app.username,
@@ -50,18 +49,19 @@ router.get('/export', authMiddleware, async (req, res) => {
             dateTime: app.dateTime,
         }));
 
-        const csvHeader = 'id,username,serviceType,dateTime\n';
-        const csvRows = csvData.map(row => `${row.id},${row.username},${row.serviceType},${row.dateTime}`).join('\n');
+        // Conversão dos dados em CSV
+        const csvContent = "data:text/csv;charset=utf-8," + 
+            csvData.map(e => Object.values(e).join(",")).join("\n");
 
-        const csv = csvHeader + csvRows;
-
-        res.header('Content-Type', 'text/csv');
-        res.attachment('appointments.csv');
-        res.send(csv);
+        res.set("Content-Type", "text/csv");
+        res.set("Content-Disposition", "attachment; filename=agendamentos.csv");
+        res.send(csvContent);
     } catch (error) {
-        console.error('Erro ao exportar dados:', error);
-        res.status(500).json({ message: 'Erro ao exportar dados' });
+        console.error('Erro ao exportar agendamentos:', error);
+        res.status(500).json({ message: 'Erro ao exportar agendamentos.' });
     }
 });
+
+
 
 module.exports = router;
