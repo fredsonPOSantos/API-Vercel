@@ -64,7 +64,10 @@ router.post('/', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Erro ao criar agendamento' });
     }
 });
-
+// Adicionando o método para converter o horário para UTC antes de enviar ao cliente
+const convertToUTCString = (date) => {
+    return new Date(date).toISOString();
+};
 // Rota para buscar todos os agendamentos (se admin) ou apenas os do usuário
 router.get('/', authMiddleware, async (req, res) => {
     const { username } = req.query; // Obtém o nome de usuário da query string (se fornecido)
@@ -83,13 +86,19 @@ router.get('/', authMiddleware, async (req, res) => {
             username: user.username, 
             dateTime: { $gte: new Date() } // Apenas agendamentos futuros
         });
-        res.json(appointments);
+         // Converte o horário para UTC para evitar diferenças de fuso horário
+        const formattedAppointments = appointments.map(app => ({
+            ...app.toObject(),
+            dateTime: convertToUTCString(app.dateTime) // Convertendo a data para string UTC
+        }));
+
+        res.json(formattedAppointments);
     } catch (error) {
         console.error('Erro ao buscar agendamentos:', error);
         res.status(500).json({ message: 'Erro ao buscar agendamentos' });
     }
 });
-
+        
 // Rota para buscar todos os usuários pelo campo 'username'
 router.get('/users', async (req, res) => {
     try {
