@@ -1,3 +1,5 @@
+// /server/routes/appointments.js
+// Importações
 const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/Appointment');
@@ -81,14 +83,13 @@ router.get('/', authMiddleware, async (req, res) => {
             username: user.username, 
             dateTime: { $gte: new Date() } // Apenas agendamentos futuros
         });
-    
-        res.json(formattedAppointments);
+        res.json(appointments);
     } catch (error) {
         console.error('Erro ao buscar agendamentos:', error);
         res.status(500).json({ message: 'Erro ao buscar agendamentos' });
     }
 });
-        
+
 // Rota para buscar todos os usuários pelo campo 'username'
 router.get('/users', async (req, res) => {
     try {
