@@ -7,20 +7,20 @@ const authRoutes = require('./server/routes/auth');
 const appointmentRoutes = require('./server/routes/appointments');
 const reportRoutes = require('./server/routes/reports');
 const jwt = require('jsonwebtoken');
+const https = require('https');
+const fs = require('fs');
 const app = express(); // Inicializa o Express
 const secret = process.env.JWT_SECRET; // Token secreto para autenticação
 const tokenExpiration = '1h'; // Duração do token JWT
-
-const http = require('http');
-const httpPort = process.env.HTTP_PORT || 4000; // Porta para o servidor HTTP
+const port = process.env.PORT || 3002;  //Defini A porta que O servidor Vai rodar
 
 dotenv.config(); // Serve Para Carregar Variaveis de Ambiente
 require('dotenv').config();  //carregar variaveis de ambiente
 
 // Carregar o certificado e a chave privada gerado pelo openSSl em meu nome
 const options = {
-  key: Buffer.from(process.env.SSL_KEY, 'utf-8'),
-  cert: Buffer.from(process.env.SSL_CERT, 'utf-8')
+  key: fs.readFileSync(path.join(__dirname, 'server', 'certificados', 'key.pem')), // Caminho do key.pem
+  cert: fs.readFileSync(path.join(__dirname, 'server','certificados', 'cert.pem')), // Caminho do cert.pem
 };
 
 // Configuração do CORS (politica de acesso)
@@ -62,7 +62,8 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .then(() => console.log('Banco de Dados MongoDB-Cloud connectado com Sucesso'))
     .catch(err => console.log(err));
 
-// Iniciar o servidor HTTP
-http.createServer(app).listen(httpPort, () => {
-  console.log(`Servidor HTTP rodando em http://localhost:${httpPort}`);
+// Iniciar o servidor HTTPS
+https.createServer(options, app).listen(port, () => {
+  console.log(`Servidor rodando em https://localhost:${port}`);
 });
+
